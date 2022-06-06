@@ -10,7 +10,7 @@ spring:
   servlet:
     multipart:
       enabled: on
-      location: E:\upload
+      location: /upload
       max-file-size: 10MB
 server:
   port: 10800
