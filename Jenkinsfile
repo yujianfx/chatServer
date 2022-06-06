@@ -12,7 +12,7 @@ pipeline {
                 }
             }
             steps {
-                sh 'cd ${WS} && mvn clean package -s "/root/.m2/settings.xml"  -DskipTests'
+                sh 'cd ${WS} && mvn clean package -s "/root/.m2/settings.xml" -Dmaven.skip.Tests=true'
             }
         }
         stage('Build') {
