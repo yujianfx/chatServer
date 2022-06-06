@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    // 创建一个websocket对象，用于和服务器交互
+    var ws = new WebSocket("ws://localhost:10800/msgWebsocket");
+    // 每五秒发送一条消息给服务器
+    setInterval(function () {
+        ws.send("hello");
+    }, 10000);
+    // 接收服务器发送的消息
+    ws.onmessage = function (event) {
+        console.log(event.data);
+    };
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.wangudiercai.chatserver.mapper.MessageMapper">
+
+    <resultMap id="BaseResultMap" type="top.wangudiercai.chatserver.domain.Message">
+            <id property="id" column="id" jdbcType="CHAR"/>
+            <result property="context" column="context" jdbcType="VARCHAR"/>
+            <result property="sender" column="sender" jdbcType="CHAR"/>
+            <result property="sendTime" column="send_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,context,sender,
+        send_time
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from message
+        where  id = #{id,jdbcType=CHAR} 
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from message
+        where  id = #{id,jdbcType=CHAR} 
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="top.wangudiercai.chatserver.domain.Message" useGeneratedKeys="true">
+        insert into message
+        ( id,context,sender
+        ,send_time)
+        values (#{id,jdbcType=CHAR},#{context,jdbcType=VARCHAR},#{sender,jdbcType=CHAR}
+        ,#{sendTime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="top.wangudiercai.chatserver.domain.Message" useGeneratedKeys="true">
+        insert into message
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">id,</if>
+                <if test="context != null">context,</if>
+                <if test="sender != null">sender,</if>
+                <if test="sendTime != null">sendTime,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">id = #{id,jdbcType=CHAR},</if>
+                <if test="context != null">context = #{context,jdbcType=VARCHAR},</if>
+                <if test="sender != null">sender = #{sender,jdbcType=CHAR},</if>
+                <if test="sendTime != null">send_time = #{sendTime,jdbcType=TIMESTAMP},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="top.wangudiercai.chatserver.domain.Message">
+        update message
+        <set>
+                <if test="context != null">
+                    context = #{context,jdbcType=VARCHAR},
+                </if>
+                <if test="sender != null">
+                    sender = #{sender,jdbcType=CHAR},
+                </if>
+                <if test="sendTime != null">
+                    send_time = #{sendTime,jdbcType=TIMESTAMP},
+                </if>
+        </set>
+        where   id = #{id,jdbcType=CHAR} 
+    </update>
+    <update id="updateByPrimaryKey" parameterType="top.wangudiercai.chatserver.domain.Message">
+        update message
+        set 
+            context =  #{context,jdbcType=VARCHAR},
+            sender =  #{sender,jdbcType=CHAR},
+            send_time =  #{sendTime,jdbcType=TIMESTAMP}
+        where   id = #{id,jdbcType=CHAR} 
+    </update>
+</mapper>
